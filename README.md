@@ -1,6 +1,6 @@
 <div align="center">
 
-# 万物皆可读 · Read Anything
+# read-anything
 
 **不是"念字"，而是 AI 看懂屏幕后，像朋友一样讲给你听。**
 
