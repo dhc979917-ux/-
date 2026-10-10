@@ -1,0 +1,13 @@
+<resources>
+    <string-array name="mode_names">
+        <item>朗读模式</item>
+        <item>助手模式</item>
+        <item>全权模式</item>
+    </string-array>
+    <string-array name="operation_level_names">
+        <item>不操作</item>
+        <item>只点按钮</item>
+        <item>可以填表</item>
+        <item>可以下单支付</item>
+    </string-array>
+</resources>

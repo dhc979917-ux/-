@@ -5,10 +5,10 @@ if "%~1"=="" (
   pause
   exit /b
 )
-echo 正在把源代码拷入：%~1
-robocopy "%~dp0MyReaderDemo\app\src\main" "%~1\app\src\main" /E /NFL /NDL /NJH /NJS
-copy /Y "%~dp0MyReaderDemo\app\build.gradle.kts" "%~1\app\build.gradle.kts" >nul
-if exist "%~1\app\src\main\res\values-night\themes.xml" copy /Y "%~dp0MyReaderDemo\app\src\main\res\values\themes.xml" "%~1\app\src\main\res\values-night\themes.xml" >nul
+echo 正在把 MyReaderApp（v0.2 多模型版）源代码拷入：%~1
+robocopy "%~dp0MyReaderApp\app\src\main" "%~1\app\src\main" /E /NFL /NDL /NJH /NJS
+copy /Y "%~dp0MyReaderApp\app\build.gradle.kts" "%~1\app\build.gradle.kts" >nul
+if exist "%~1\app\src\main\res\values-night\themes.xml" copy /Y "%~dp0MyReaderApp\app\src\main\res\values\themes.xml" "%~1\app\src\main\res\values-night\themes.xml" >nul
 if errorlevel 8 (
   echo 有文件拷贝失败，请截图联系助手排查
 ) else (
