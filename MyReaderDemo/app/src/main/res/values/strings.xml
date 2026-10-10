@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">万物皆可读 Demo</string>
+    <string name="accessibility_desc">开启后，可以读取屏幕内容并朗读</string>
+</resources>

@@ -1,0 +1,9 @@
+{
+  "base_url": "https://open.bigmodel.cn/api/paas/v4",
+  "api_key": "在这里填你的APIKey",
+  "model": "glm-4v-flash",
+  "rate": 175,
+  "hotkey_full": "alt+r",
+  "hotkey_region": "alt+s",
+  "hotkey_stop": "alt+q"
+}
