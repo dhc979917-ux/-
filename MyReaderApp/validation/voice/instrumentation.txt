@@ -1,0 +1,35 @@
+PASS negated operation is not executed
+PASS compound operation is not executed
+PASS reading scope
+PASS password text excluded
+PASS request enters loading state
+PASS cancel clears loading and ignores delayed result
+PASS speech result reaches reading request
+PASS voice scroll advances external page
+PASS click requires confirmation
+PASS confirmed exact label click
+PASS stale click confirmation rejected
+PASS speech rejected without navigating: 没有听清操作口令
+PASS speech rejected without navigating: 语音识别网络不可用
+PASS home command
+PASS open app by installed label
+PASS back command
+PASS failure clears loading
+PASS negated operation is not executed
+PASS compound operation is not executed
+PASS reading scope
+PASS password text excluded
+PASS request enters loading state
+PASS cancel clears loading and ignores delayed result
+PASS speech result reaches reading request
+PASS voice scroll advances external page
+PASS click requires confirmation
+PASS confirmed exact label click
+PASS stale click confirmation rejected
+PASS speech rejected without navigating: 没有听清操作口令
+PASS speech rejected without navigating: 语音识别网络不可用
+PASS home command
+PASS open app by installed label
+PASS back command
+PASS failure clears loading
+NOTE Recognition service and AI responses were mocked; microphone accuracy and audible Chinese TTS need real-device testing.

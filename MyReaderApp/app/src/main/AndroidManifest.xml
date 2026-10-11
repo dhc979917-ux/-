@@ -2,11 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
 
     <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
         <intent>
             <action android:name="android.intent.action.TTS_SERVICE" />
         </intent>
@@ -30,6 +38,10 @@
         <activity
             android:name=".SettingsActivity"
             android:exported="false" />
+
+        <activity android:name=".VoiceCommandActivity" android:exported="false"
+            android:theme="@style/Theme.MyReaderApp.Voice" android:taskAffinity="com.example.myreader.voice"
+            android:excludeFromRecents="true" android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <service
             android:name=".ReaderService"

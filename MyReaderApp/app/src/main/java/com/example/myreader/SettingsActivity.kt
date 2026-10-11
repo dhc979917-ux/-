@@ -308,8 +308,6 @@ class SettingsActivity : AppCompatActivity() {
                 .putBoolean("screen_upload_consent", false).apply()
         }
         ModelConfigStore.保存(this, current)
-        getSharedPreferences("app_settings", MODE_PRIVATE).edit()
-            .putInt("mode", Mode.READ.ordinal).putInt("level", OperationLevel.NONE.ordinal).apply()
         Toast.makeText(this, "已保存", Toast.LENGTH_SHORT).show()
         finish()
     }

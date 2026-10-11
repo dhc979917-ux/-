@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp" android:focusableInTouchMode="true">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="语音指令" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/reader_ink" />
+            <ImageButton android:id="@+id/btnCloseVoice" android:layout_width="48dp" android:layout_height="48dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_back" android:contentDescription="关闭语音" />
+        </LinearLayout>
+        <TextView android:id="@+id/tvVoiceStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="准备语音输入" android:textSize="16sp" android:textColor="@color/reader_secondary" android:accessibilityLiveRegion="polite" />
+        <ProgressBar android:id="@+id/voiceLevel" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="4dp" android:layout_marginTop="16dp" android:max="100" android:visibility="invisible" />
+        <TextView style="@style/ReaderLabel" android:text="口令" />
+        <EditText android:id="@+id/etVoiceCommand" style="@style/ReaderInput" android:hint="说出或输入口令" android:inputType="textCapSentences|textMultiLine" android:maxLength="500" android:saveEnabled="false" android:importantForAutofill="no" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnListen" style="@style/ReaderSecondaryButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="开始录音" app:icon="@drawable/ic_mic" app:iconGravity="textStart" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnSendCommand" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="52dp" android:text="执行口令" android:letterSpacing="0" app:backgroundTint="@color/reader_ink" app:cornerRadius="8dp" />
+        <Button android:id="@+id/btnVoiceHelp" style="@style/Widget.MaterialComponents.Button.TextButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48dp" android:text="语音帮助" android:letterSpacing="0" />
+    </LinearLayout>
+</ScrollView>

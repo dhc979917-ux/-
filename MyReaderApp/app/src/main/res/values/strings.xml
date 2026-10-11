@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">万物皆可读</string>
-    <string name="accessibility_desc">开启后，可以读取屏幕内容并朗读</string>
+    <string name="accessibility_desc">为视障人士读取屏幕并朗读；按你的语音指令滑动页面、返回、打开应用和确认后点击指定按钮。</string>
 </resources>

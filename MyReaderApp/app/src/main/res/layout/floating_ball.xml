@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="60dp"
-    android:layout_height="60dp"
-    android:background="@drawable/floating_background"
-    android:contentDescription="朗读当前屏幕"
-    android:clickable="true"
-    android:focusable="true"
-    android:elevation="8dp"
-    android:gravity="center"
-    android:text="读"
-    android:textColor="#FFFFFF"
-    android:textSize="24sp" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="68dp" android:layout_height="136dp" android:orientation="vertical" android:gravity="center_horizontal" android:padding="4dp">
+    <FrameLayout android:id="@+id/floatingRead" android:layout_width="60dp" android:layout_height="60dp" android:background="@drawable/floating_background" android:contentDescription="朗读当前屏幕" android:clickable="true" android:focusable="true" android:elevation="4dp">
+        <TextView android:id="@+id/floatingLabel" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="读" android:textColor="#FFFFFF" android:textSize="23sp" android:importantForAccessibility="no" />
+        <ProgressBar android:id="@+id/floatingProgress" style="?android:attr/progressBarStyle" android:layout_width="56dp" android:layout_height="56dp" android:layout_gravity="center" android:indeterminate="true" android:indeterminateTint="#FFFFFF" android:visibility="gone" android:importantForAccessibility="no" />
+    </FrameLayout>
+    <androidx.appcompat.widget.AppCompatImageButton android:id="@+id/floatingVoice" android:layout_width="60dp" android:layout_height="60dp" android:layout_marginTop="8dp" android:padding="17dp" android:background="@drawable/floating_background" android:src="@drawable/ic_mic" app:tint="#FFFFFF" android:contentDescription="语音指令" android:tooltipText="语音指令" />
+</LinearLayout>

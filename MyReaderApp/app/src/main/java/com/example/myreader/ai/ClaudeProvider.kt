@@ -19,7 +19,7 @@ class ClaudeProvider(private val config: ModelConfig) : AiProvider {
         .readTimeout(60, TimeUnit.SECONDS)
         .build()
 
-    override suspend fun 理解屏幕(屏幕文字: String, 截图Base64: String?): String =
+    override suspend fun 理解屏幕(屏幕文字: String, 截图Base64: String?, 朗读要求: String): String =
         withContext(Dispatchers.IO) {
             if (config.apiKey.isBlank()) return@withContext "请先在设置里配置 API Key"
 
@@ -39,7 +39,7 @@ class ClaudeProvider(private val config: ModelConfig) : AiProvider {
                 }
                 put(JSONObject().apply {
                     put("type", "text")
-                    put("text", 构建Prompt(屏幕文字))
+                    put("text", ReadingPrompt.build(屏幕文字, 朗读要求))
                 })
             }
 
@@ -88,19 +88,4 @@ class ClaudeProvider(private val config: ModelConfig) : AiProvider {
         }
     }
 
-    private fun 构建Prompt(屏幕文字: String) = """
-你是一个"屏幕理解助手"，服务对象是看不到屏幕的人。
-请理解下面的屏幕内容，用自然的口语讲解：
-1. 这是什么页面
-2. 核心内容
-3. 重要信息
-4. 图片里是什么
-5. 有什么值得注意的
-6. 如果需要操作，该怎么做
-
-像朋友聊天，突出重点，跳过无关内容。
-
-屏幕文字：
-$屏幕文字
-    """.trimIndent()
 }

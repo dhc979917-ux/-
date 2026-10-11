@@ -20,7 +20,7 @@ class OllamaProvider(private val config: ModelConfig) : AiProvider {
         .readTimeout(120, TimeUnit.SECONDS)
         .build()
 
-    override suspend fun 理解屏幕(屏幕文字: String, 截图Base64: String?): String =
+    override suspend fun 理解屏幕(屏幕文字: String, 截图Base64: String?, 朗读要求: String): String =
         withContext(Dispatchers.IO) {
             val baseUrl = config.baseUrl.ifBlank { "http://localhost:11434" }
             val url = "${baseUrl.trimEnd('/')}/api/chat"
@@ -31,7 +31,7 @@ class OllamaProvider(private val config: ModelConfig) : AiProvider {
                 put("messages", JSONArray().apply {
                     put(JSONObject().apply {
                         put("role", "user")
-                        put("content", 构建Prompt(屏幕文字))
+                        put("content", ReadingPrompt.build(屏幕文字, 朗读要求))
                         if (!截图Base64.isNullOrBlank() && config.支持图片) {
                             put("images", JSONArray().put(截图Base64))
                         }
@@ -70,10 +70,4 @@ class OllamaProvider(private val config: ModelConfig) : AiProvider {
         }
     }
 
-    private fun 构建Prompt(屏幕文字: String) = """
-你是一个"屏幕理解助手"。请理解下面的屏幕内容，用自然的口语讲解。
-
-屏幕文字：
-$屏幕文字
-    """.trimIndent()
 }

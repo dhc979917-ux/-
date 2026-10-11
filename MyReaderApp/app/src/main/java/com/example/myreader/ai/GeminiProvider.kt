@@ -19,7 +19,7 @@ class GeminiProvider(private val config: ModelConfig) : AiProvider {
         .readTimeout(60, TimeUnit.SECONDS)
         .build()
 
-    override suspend fun 理解屏幕(屏幕文字: String, 截图Base64: String?): String =
+    override suspend fun 理解屏幕(屏幕文字: String, 截图Base64: String?, 朗读要求: String): String =
         withContext(Dispatchers.IO) {
             if (config.apiKey.isBlank()) return@withContext "请先在设置里配置 API Key"
 
@@ -28,7 +28,7 @@ class GeminiProvider(private val config: ModelConfig) : AiProvider {
             val url = "${base.trimEnd('/')}/models/$model:generateContent?key=${config.apiKey}"
 
             val parts = JSONArray().apply {
-                put(JSONObject().apply { put("text", 构建Prompt(屏幕文字)) })
+                put(JSONObject().apply { put("text", ReadingPrompt.build(屏幕文字, 朗读要求)) })
                 if (!截图Base64.isNullOrBlank() && config.支持图片) {
                     put(JSONObject().apply {
                         put("inline_data", JSONObject().apply {
@@ -80,12 +80,4 @@ class GeminiProvider(private val config: ModelConfig) : AiProvider {
         }
     }
 
-    private fun 构建Prompt(屏幕文字: String) = """
-你是一个"屏幕理解助手"，服务对象是看不到屏幕的人。
-请理解下面的屏幕内容，用自然的口语讲解。
-像朋友聊天，突出重点，跳过无关内容。
-
-屏幕文字：
-$屏幕文字
-    """.trimIndent()
 }

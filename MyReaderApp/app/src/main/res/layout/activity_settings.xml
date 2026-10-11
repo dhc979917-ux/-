@@ -30,7 +30,7 @@
         <TextView android:id="@+id/tvModelStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="13sp" android:textColor="@color/reader_secondary" android:accessibilityLiveRegion="polite" />
         <com.google.android.material.switchmaterial.SwitchMaterial android:id="@+id/switchImages" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="72dp" android:layout_marginTop="16dp" android:text="发送已授权的截图" android:textSize="16sp" android:textColor="@color/reader_ink" />
         <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/reader_line" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="仅朗读 · 不操作屏幕" android:textSize="13sp" android:textColor="@color/reader_secondary" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="语音导航在本机执行 · 点击需确认" android:textSize="13sp" android:textColor="@color/reader_secondary" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="屏幕内容将发送至你配置的 AI 服务。" android:textSize="13sp" android:textColor="@color/reader_secondary" />
         <TextView android:id="@+id/tvConnectionStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:textSize="14sp" android:accessibilityLiveRegion="polite" android:textColor="@color/reader_primary" />
     </LinearLayout>
