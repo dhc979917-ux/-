@@ -6,6 +6,7 @@ data class ModelConfig(
     val apiKey: String,
     val baseUrl: String,       // 自定义时用
     val 支持图片: Boolean = true,
+    val 预设名: String = "",
 )
 
 data class Provider预设(

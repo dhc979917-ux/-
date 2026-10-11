@@ -10,6 +10,17 @@ local.properties
 *.iml
 .idea/
 
+# Local credentials and signing keys
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.pem
+*.key
+key.properties
+keystore.properties
+
 # OS
 Thumbs.db
 .DS_Store

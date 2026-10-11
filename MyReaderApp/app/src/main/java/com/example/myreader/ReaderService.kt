@@ -59,6 +59,7 @@ class ReaderService : AccessibilityService() {
 
     // text 是控件文字，contentDescription 是图片/按钮的语义描述（读屏场景往往更重要）
     private fun 收集节点文字(node: AccessibilityNodeInfo, builder: StringBuilder) {
+        if (node.isPassword || !node.isVisibleToUser || builder.length >= 16000) return
         node.text?.let { builder.append(it).append('\n') }
         node.contentDescription?.let { builder.append(it).append('\n') }
         for (i in 0 until node.childCount) {

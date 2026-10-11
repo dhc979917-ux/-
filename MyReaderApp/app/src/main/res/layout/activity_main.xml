@@ -1,50 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp" />
-
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="❌ 请先开启无障碍服务"
-        android:textSize="16sp"
-        android:layout_marginBottom="32dp" />
-
-    <Button
-        android:id="@+id/btnAccessibility"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="去开启无障碍服务" />
-
-    <Button
-        android:id="@+id/btnFloating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="开启悬浮球" />
-
-    <Button
-        android:id="@+id/btnRead"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="朗读当前屏幕（测试）" />
-
-    <Button
-        android:id="@+id/btnSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="设置（模式 / AI 模型）" />
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="24dp" android:paddingEnd="24dp" android:paddingBottom="28dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="72dp" android:gravity="center_vertical">
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="万物皆可读" android:textSize="23sp" android:textStyle="bold" android:textColor="@color/reader_ink" />
+        <ImageButton android:id="@+id/btnSettings" android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_settings" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="模型设置" android:tooltipText="模型设置" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_horizontal" android:paddingTop="24dp" android:paddingBottom="24dp">
+        <ImageView android:layout_width="160dp" android:layout_height="64dp" android:src="@drawable/ic_wave" android:importantForAccessibility="no" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:gravity="center" android:text="屏幕朗读" android:textSize="26sp" android:textStyle="bold" android:textColor="@color/reader_ink" />
+        <TextView android:id="@+id/tvStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:gravity="center" android:textSize="14sp" android:textColor="@color/reader_secondary" android:accessibilityLiveRegion="polite" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btnRead" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="64dp" android:layout_marginTop="24dp" android:text="开始朗读" android:textSize="18sp" android:textAllCaps="false" android:letterSpacing="0" android:textColor="#FFFFFF" app:backgroundTint="@color/reader_ink" app:cornerRadius="8dp" app:icon="@drawable/ic_play" app:iconTint="#FFFFFF" app:iconGravity="textStart" app:iconPadding="10dp" />
+        <ProgressBar android:id="@+id/progressReading" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="3dp" android:indeterminate="true" android:visibility="invisible" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center">
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnStop" style="@style/Widget.MaterialComponents.Button.TextButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:minHeight="48dp" android:text="停止" android:textSize="14sp" android:letterSpacing="0" android:textColor="@color/reader_accent" app:icon="@drawable/ic_stop" app:iconTint="@color/reader_accent" app:iconSize="18dp" app:iconGravity="textStart" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnReplay" style="@style/Widget.MaterialComponents.Button.TextButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:minHeight="48dp" android:text="重播" android:textSize="14sp" android:letterSpacing="0" android:enabled="false" app:icon="@drawable/ic_replay" app:iconSize="18dp" app:iconGravity="textStart" />
+        </LinearLayout>
+    </LinearLayout>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/reader_line" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="本次讲解" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/reader_ink" />
+    <TextView android:id="@+id/tvResult" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="84dp" android:paddingTop="12dp" android:paddingBottom="24dp" android:text="还没有朗读内容" android:textSize="16sp" android:lineSpacingExtra="6dp" android:textColor="@color/reader_secondary" android:textIsSelectable="true" />
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/reader_line" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="24dp" android:layout_marginBottom="4dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="读取设置" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/reader_ink" />
+        <TextView android:id="@+id/tvModel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:gravity="end" android:textSize="12sp" android:textColor="@color/reader_secondary" />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/btnAccessibility" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="72dp" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="12dp" android:paddingBottom="12dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
+<ImageView android:layout_width="40dp" android:layout_height="40dp" android:padding="10dp" android:background="@drawable/icon_background" android:src="@drawable/ic_text" android:importantForAccessibility="no" />
+<LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:orientation="vertical">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="屏幕文字" android:textSize="16sp" android:textColor="@color/reader_ink" />
+<TextView android:id="@+id/tvAccessibilityState" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:textSize="13sp" android:textColor="@color/reader_secondary" />
 </LinearLayout>
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:rotation="180" android:src="@drawable/ic_back" android:alpha="0.4" android:importantForAccessibility="no" />
+</LinearLayout>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/reader_line" />
+    <LinearLayout android:id="@+id/btnCapture" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="72dp" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="12dp" android:paddingBottom="12dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
+<ImageView android:layout_width="40dp" android:layout_height="40dp" android:padding="10dp" android:background="@drawable/icon_background" android:src="@drawable/ic_scan" android:importantForAccessibility="no" />
+<LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:orientation="vertical">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="图片识别" android:textSize="16sp" android:textColor="@color/reader_ink" />
+<TextView android:id="@+id/tvCaptureState" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:textSize="13sp" android:textColor="@color/reader_secondary" />
+</LinearLayout>
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:rotation="180" android:src="@drawable/ic_back" android:alpha="0.4" android:importantForAccessibility="no" />
+</LinearLayout>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/reader_line" />
+    <LinearLayout android:id="@+id/btnFloating" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="72dp" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="12dp" android:paddingBottom="12dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
+<ImageView android:layout_width="40dp" android:layout_height="40dp" android:padding="10dp" android:background="@drawable/icon_background" android:src="@drawable/ic_float" android:importantForAccessibility="no" />
+<LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="14dp" android:orientation="vertical">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="悬浮朗读" android:textSize="16sp" android:textColor="@color/reader_ink" />
+<TextView android:id="@+id/tvFloatingState" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:textSize="13sp" android:textColor="@color/reader_secondary" />
+</LinearLayout>
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:rotation="180" android:src="@drawable/ic_back" android:alpha="0.4" android:importantForAccessibility="no" />
+</LinearLayout>
+</LinearLayout>
+</ScrollView>

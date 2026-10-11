@@ -10,11 +10,19 @@ import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
 import android.os.Build
 import android.os.IBinder
+import android.os.Handler
+import android.os.Looper
 import androidx.core.app.NotificationCompat
 
 // 承载 MediaProjection 的前台服务
 // Android 14 (API 34) 规定：使用屏幕投影必须先启动 mediaProjection 类型的前台服务，否则直接抛异常
 class MediaProjectionService : Service() {
+    private val callback = object : MediaProjection.Callback() {
+        override fun onStop() {
+            投影 = null
+            stopSelf()
+        }
+    }
 
     companion object {
         // 投影缓存在这里：授权一次，会话内可反复截图
@@ -56,11 +64,13 @@ class MediaProjectionService : Service() {
             val manager = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
             投影?.stop()
             投影 = manager.getMediaProjection(resultCode, data)
+            投影?.registerCallback(callback, Handler(Looper.getMainLooper()))
         }
         return START_NOT_STICKY
     }
 
     override fun onDestroy() {
+        投影?.unregisterCallback(callback)
         投影?.stop()
         投影 = null
         super.onDestroy()

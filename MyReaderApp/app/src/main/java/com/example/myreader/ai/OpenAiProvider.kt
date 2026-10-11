@@ -59,9 +59,9 @@ class OpenAiProvider(private val config: ModelConfig) : AiProvider {
                 .build()
 
             try {
-                client.newCall(request).execute().use { response ->
-                    val body = response.body?.string() ?: return@withContext "AI 无响应"
-                    if (!response.isSuccessful) return@withContext "AI 报错：$body"
+                client.newCall(request).awaitResponse().use { response ->
+                    check(response.isSuccessful) { "服务返回 HTTP ${response.code}，请检查密钥、模型和地址" }
+                    val body = checkNotNull(response.body?.string()) { "AI 无响应" }
                     JSONObject(body)
                         .getJSONArray("choices")
                         .getJSONObject(0)
@@ -69,14 +69,14 @@ class OpenAiProvider(private val config: ModelConfig) : AiProvider {
                         .getString("content")
                 }
             } catch (e: Exception) {
-                "AI 调用失败：${e.message}"
+                throw e
             }
         }
 
     override suspend fun 测试连接(): Result<String> = withContext(Dispatchers.IO) {
         try {
             val result = 理解屏幕("测试：请回复'连接成功'", null)
-            if (result.contains("失败") || result.contains("报错") || result.contains("请先")) {
+            if (result.isBlank() || config.apiKey.isBlank()) {
                 Result.failure(Exception(result))
             } else {
                 Result.success(result)

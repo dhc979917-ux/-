@@ -6,13 +6,33 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.PixelFormat
 import android.hardware.display.DisplayManager
+import android.hardware.display.VirtualDisplay
 import android.media.ImageReader
 import android.media.projection.MediaProjectionManager
+import android.media.projection.MediaProjection
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 
 class ScreenshotHelper(private val context: Context) {
+    private var activeProjection: MediaProjection? = null
+    private var reader: ImageReader? = null
+    private var display: VirtualDisplay? = null
+    private val callback = object : MediaProjection.Callback() {
+        override fun onStop() { clearCapture() }
+    }
+
+    @Synchronized
+    private fun clearCapture() {
+        display?.release()
+        reader?.close()
+        activeProjection?.unregisterCallback(callback)
+        display = null
+        reader = null
+        activeProjection = null
+    }
 
     companion object {
         const val 授权请求码 = 1001
@@ -41,44 +61,48 @@ class ScreenshotHelper(private val context: Context) {
 
     fun 是否已授权(): Boolean = MediaProjectionService.投影 != null
 
+    @Synchronized
     fun 截图(): Bitmap? {
         val projection = MediaProjectionService.投影 ?: return null
         return try {
             val metrics = context.resources.displayMetrics
             val width = metrics.widthPixels
             val height = metrics.heightPixels
-            val reader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 2)
-            val display = projection.createVirtualDisplay(
+            if (activeProjection !== projection) {
+                clearCapture()
+                activeProjection = projection
+                projection.registerCallback(callback, Handler(Looper.getMainLooper()))
+                reader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 2)
+                display = projection.createVirtualDisplay(
                 "myreader_capture",
                 width,
                 height,
                 metrics.densityDpi,
                 DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
-                reader.surface,
+                reader!!.surface,
                 null,
                 null
             )
-            // 虚拟屏需要一点时间渲染出第一帧，等 400ms 再取
+            }
+            reader?.acquireLatestImage()?.close()
             Thread.sleep(400)
-            val image = reader.acquireLatestImage()
-            val bitmap = image?.let { img ->
+            val image = reader?.acquireLatestImage()
+            val bitmap = image?.use { img ->
                 val plane = img.planes[0]
                 val buffer = plane.buffer
                 val pixelStride = plane.pixelStride
                 val rowStride = plane.rowStride
                 // ImageReader 的行宽可能带对齐填充，先整行拷出来再裁掉
-                val rowPadding = rowStride - pixelStride * width
                 val full = Bitmap.createBitmap(
-                    width + rowPadding / pixelStride,
-                    height,
+                    img.width + (rowStride - pixelStride * img.width) / pixelStride,
+                    img.height,
                     Bitmap.Config.ARGB_8888
                 )
                 full.copyPixelsFromBuffer(buffer)
-                Bitmap.createBitmap(full, 0, 0, width, height)
+                val cropped = Bitmap.createBitmap(full, 0, 0, img.width, img.height)
+                if (cropped !== full) full.recycle()
+                cropped
             }
-            image?.close()
-            display?.release()
-            reader.close()
             bitmap
         } catch (e: Exception) {
             null
@@ -92,6 +116,7 @@ class ScreenshotHelper(private val context: Context) {
     }
 
     fun 释放() {
+        clearCapture()
         context.stopService(Intent(context, MediaProjectionService::class.java))
     }
 }
