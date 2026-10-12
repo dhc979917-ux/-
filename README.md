@@ -1,6 +1,6 @@
 <div align="center">
 
-# 万物皆可读
+# Read-anything
 
 **让屏幕上的文字与画面，变成可以听见的讲解。**
 
@@ -273,7 +273,7 @@ flowchart LR
 
 <div align="center">
 
-**万物皆可读 · read-anything**
+**read-anything**
 
 许可证尚未确定。
 
